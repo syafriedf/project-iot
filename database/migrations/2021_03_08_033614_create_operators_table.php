@@ -17,6 +17,8 @@ class CreateOperatorsTable extends Migration
             $table->id('opt_id');
             $table->string('opt_name');
             $table->string('division');
+            $table->string('username')->unique();
+            $table->string('password');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

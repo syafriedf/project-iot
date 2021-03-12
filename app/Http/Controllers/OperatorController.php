@@ -42,7 +42,7 @@ class OperatorController extends Controller
     public function edit(Operator $operator)
     {
         // $operator = DB::table('operators')->where('opt_id',$operator)->get();
-    //    return view('v_operator',compact('operator'));
+        return view('v_operator',compact('operator'));
     //    return view('v_operator',['operators'=> $operator]);
         //return("teste//dit");
     }

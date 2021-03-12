@@ -65,20 +65,20 @@
                         </div>
                         <div class="modal-body">
                         @foreach ($operators as $data)
-                            <form action="{{route('operator.update', $operators->opt_id)}}" method="POST">
+                            <form action="{{route('operator.update', $data->opt_id)}}" method="POST">
                             @csrf
                             @method('PUT')
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Nama Operator: </strong>
-                                            <input type="text" name="opt_name" class="form-control" value="{{$operators->opt_name}}" placeholder="Nama Operator">
+                                            <input type="text" name="opt_name" class="form-control" value="{{$data->opt_name}}" placeholder="Nama Operator">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Divisi: </strong>
-                                            <input class="form-control" style="height:90px" value="{{$operators->division}}" name="division" placeholder="Divisi">
+                                            <input class="form-control" style="height:90px" value="{{$data->division}}" name="division" placeholder="Divisi">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
