@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2021 at 11:18 AM
+-- Generation Time: Mar 12, 2021 at 11:10 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `iot_test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `downtimes`
+--
+
+CREATE TABLE `downtimes` (
+  `dwn_id` bigint(20) UNSIGNED NOT NULL,
+  `id_line` bigint(20) UNSIGNED NOT NULL,
+  `sts_id` bigint(20) UNSIGNED NOT NULL,
+  `date_start` datetime NOT NULL,
+  `date_end` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -55,15 +69,17 @@ CREATE TABLE `machines` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mch_line`
+-- Table structure for table `mch_lines`
 --
 
-CREATE TABLE `mch_line` (
+CREATE TABLE `mch_lines` (
   `id_line` bigint(20) UNSIGNED NOT NULL,
-  `sts_id` int(11) NOT NULL,
-  `mch_id` int(11) NOT NULL,
-  `opt_id` int(11) NOT NULL,
-  `wop_id` int(11) NOT NULL
+  `mch_id` bigint(20) UNSIGNED NOT NULL,
+  `sts_id` bigint(20) UNSIGNED NOT NULL,
+  `wop_id` bigint(20) UNSIGNED NOT NULL,
+  `opt_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -83,13 +99,15 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(34, '2014_10_12_000000_create_users_table', 1),
-(35, '2014_10_12_100000_create_password_resets_table', 1),
-(36, '2019_08_19_000000_create_failed_jobs_table', 1),
-(37, '2021_03_08_033614_create_operators_table', 1),
-(38, '2021_03_09_035830_create_machines_table', 1),
-(39, '2021_03_09_062858_create_statuses_table', 1),
-(40, '2021_03_09_071444_create_workorders_table', 1);
+(99, '2014_10_12_000000_create_users_table', 1),
+(100, '2014_10_12_100000_create_password_resets_table', 1),
+(101, '2019_08_19_000000_create_failed_jobs_table', 1),
+(102, '2021_03_08_033614_create_operators_table', 1),
+(103, '2021_03_09_035830_create_machines_table', 1),
+(104, '2021_03_09_062858_create_statuses_table', 1),
+(105, '2021_03_09_071444_create_workorders_table', 1),
+(106, '2021_03_12_011516_create_mch_lines_table', 1),
+(107, '2021_03_12_012221_create_downtimes_table', 1);
 
 -- --------------------------------------------------------
 
@@ -101,9 +119,20 @@ CREATE TABLE `operators` (
   `opt_id` bigint(20) UNSIGNED NOT NULL,
   `opt_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `division` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `operators`
+--
+
+INSERT INTO `operators` (`opt_id`, `opt_name`, `division`, `username`, `password`, `roles`, `created_at`, `updated_at`) VALUES
+(2, 'asfasf', 'asfasf', 'asfasf', 'asfasf', 'asfasf', '2021-03-12 02:50:41', '2021-03-12 02:50:41'),
+(4, 'asfasf', 'asfasfasfasf', 'asfasfasfasfasfasf', 'asfasf', 'asfasf', '2021-03-12 02:52:31', '2021-03-12 02:52:31');
 
 -- --------------------------------------------------------
 
@@ -166,6 +195,14 @@ CREATE TABLE `workorders` (
 --
 
 --
+-- Indexes for table `downtimes`
+--
+ALTER TABLE `downtimes`
+  ADD PRIMARY KEY (`dwn_id`),
+  ADD KEY `downtimes_id_line_foreign` (`id_line`),
+  ADD KEY `downtimes_sts_id_foreign` (`sts_id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -179,10 +216,14 @@ ALTER TABLE `machines`
   ADD PRIMARY KEY (`mch_id`);
 
 --
--- Indexes for table `mch_line`
+-- Indexes for table `mch_lines`
 --
-ALTER TABLE `mch_line`
-  ADD PRIMARY KEY (`id_line`);
+ALTER TABLE `mch_lines`
+  ADD PRIMARY KEY (`id_line`),
+  ADD KEY `mch_lines_mch_id_foreign` (`mch_id`),
+  ADD KEY `mch_lines_sts_id_foreign` (`sts_id`),
+  ADD KEY `mch_lines_wop_id_foreign` (`wop_id`),
+  ADD KEY `mch_lines_opt_id_foreign` (`opt_id`);
 
 --
 -- Indexes for table `migrations`
@@ -194,7 +235,8 @@ ALTER TABLE `migrations`
 -- Indexes for table `operators`
 --
 ALTER TABLE `operators`
-  ADD PRIMARY KEY (`opt_id`);
+  ADD PRIMARY KEY (`opt_id`),
+  ADD UNIQUE KEY `operators_username_unique` (`username`);
 
 --
 -- Indexes for table `password_resets`
@@ -226,6 +268,12 @@ ALTER TABLE `workorders`
 --
 
 --
+-- AUTO_INCREMENT for table `downtimes`
+--
+ALTER TABLE `downtimes`
+  MODIFY `dwn_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -238,22 +286,22 @@ ALTER TABLE `machines`
   MODIFY `mch_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `mch_line`
+-- AUTO_INCREMENT for table `mch_lines`
 --
-ALTER TABLE `mch_line`
+ALTER TABLE `mch_lines`
   MODIFY `id_line` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `operators`
 --
 ALTER TABLE `operators`
-  MODIFY `opt_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `opt_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `statuses`
@@ -272,6 +320,26 @@ ALTER TABLE `users`
 --
 ALTER TABLE `workorders`
   MODIFY `wop_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `downtimes`
+--
+ALTER TABLE `downtimes`
+  ADD CONSTRAINT `downtimes_id_line_foreign` FOREIGN KEY (`id_line`) REFERENCES `mch_lines` (`id_line`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `downtimes_sts_id_foreign` FOREIGN KEY (`sts_id`) REFERENCES `statuses` (`sts_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `mch_lines`
+--
+ALTER TABLE `mch_lines`
+  ADD CONSTRAINT `mch_lines_mch_id_foreign` FOREIGN KEY (`mch_id`) REFERENCES `machines` (`mch_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mch_lines_opt_id_foreign` FOREIGN KEY (`opt_id`) REFERENCES `operators` (`opt_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mch_lines_sts_id_foreign` FOREIGN KEY (`sts_id`) REFERENCES `statuses` (`sts_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mch_lines_wop_id_foreign` FOREIGN KEY (`wop_id`) REFERENCES `workorders` (`wop_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
