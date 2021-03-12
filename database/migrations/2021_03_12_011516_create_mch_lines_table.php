@@ -14,7 +14,7 @@ class CreateMchLinesTable extends Migration
     public function up()
     {
         Schema::create('mch_lines', function (Blueprint $table) {
-            $table->id('mch_lines');
+            $table->id('id_line');
             $table->bigInteger('mch_id')->unsigned();
             $table->bigInteger('sts_id')->unsigned();
             $table->bigInteger('wop_id')->unsigned();

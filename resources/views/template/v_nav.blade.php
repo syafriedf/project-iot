@@ -49,10 +49,17 @@
                     <i class="fas fa-fw fa-spinner"></i>
                     <span>Master Status</span></a>
             </li>
+            
 
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-times-circle"></i>
+                    <span>Logout</span></a>
+            </li>
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

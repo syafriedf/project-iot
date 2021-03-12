@@ -22,7 +22,7 @@ class CreateDowntimesTable extends Migration
         });
 
         Schema::table('downtimes', function (Blueprint $table) {
-            $table->foreign('id_line')->references('id_line')->on('mch_line')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_line')->references('id_line')->on('mch_lines')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('sts_id')->references('sts_id')->on('statuses')->onDelete('cascade')->onUpdate('cascade');
         });
     }
