@@ -20,6 +20,11 @@ class CreateDowntimesTable extends Migration
             $table->dateTime('date_start');
             $table->dateTime('date_end');;
         });
+
+        Schema::table('downtimes', function (Blueprint $table) {
+            $table->foreign('id_line')->references('id_line')->on('mch_line')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('sts_id')->references('sts_id')->on('statuses')->onDelete('cascade')->onUpdate('cascade');
+        });
     }
 
     /**
