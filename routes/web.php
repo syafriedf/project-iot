@@ -21,7 +21,8 @@ use App\Http\Controllers\WoController;
 //     return view('welcome');
 // });
 
-Route::get('/', [MainController::class, 'index']);
+Route::get('/home', [MainController::class, 'index']);
+Route::view('/login', 'auth.login');
 
 Route::resource('operator', OperatorController::class);
 //Route::resource('test', [OperatorController::class, 'edit']);

@@ -39,7 +39,25 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Divisi: </strong>
-                                <textarea class="form-control" style="height:90px" name="division" placeholder="Divisi"></textarea>
+                                <input type="text" name="division" class="form-control" placeholder="Divisi">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>username: </strong>
+                                <input type="text" class="form-control" name="username" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>password: </strong>
+                                <input type="text"  class="form-control" name="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>roles: </strong>
+                                <input type="text"  class="form-control"  name="roles" placeholder="Roles">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -64,21 +82,21 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        @foreach ($operators as $data)
-                            <form action="{{route('operator.update', $data->opt_id)}}" method="POST">
+                        <!-- @foreach ($operators as $data) -->
+                            <form action="{{route('operator.update', $operators->opt_id)}}" method="POST" id="editForm">
                             @csrf
                             @method('PUT')
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Nama Operator: </strong>
-                                            <input type="text" name="opt_name" class="form-control" value="{{$data->opt_name}}" placeholder="Nama Operator">
+                                            <input type="text" name="opt_name" id="opt_name" value="{{$operators->opt_name}}" class="form-control"  placeholder="Nama Operator">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Divisi: </strong>
-                                            <input class="form-control" style="height:90px" value="{{$data->division}}" name="division" placeholder="Divisi">
+                                            <input class="form-control"  id="division" value="{{$operators->division}}"  name="division" placeholder="Divisi">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -93,12 +111,15 @@
                 </div>
                 </div>
 
-	    <table class="table table-bordered" style="background-color: white;">
+	<table id="datatable" class="table table-bordered" style="background-color: white;">
         <thead>
             <tr>
                 <th width="20px" class="text-center">No</th>
                 <th>Nama Operator</th>
                 <th width="280px"class="text-center">Divisi</th>
+                <th width="280px"class="text-center">Username</th>
+                <th width="280px"class="text-center">Password</th>
+                <th width="280px"class="text-center">Roles</th>
                 <th width="280px"class="text-center">Action</th>
             </tr>
         </thead>
@@ -108,9 +129,12 @@
                     <td class="text-center">{{ ++$i}}</td>
                     <td>{{ $data->opt_name}}</td>
                     <td>{{ $data->division}}</td>
+                    <td>{{ $data->username}}</td>
+                    <td>{{ $data->password}}</td>
+                    <td>{{ $data->roles}}</td>
                     <td class="text-center">
                         <form action="{{ route('operator.destroy',$data->opt_id) }}" method="POST">
-                            <a class="btn btn-primary btn-sm" href="{{ route('operator.edit',$data->opt_id) }}" data-toggle="modal" data-target="#exampleModal1">Edit</a>
+                            <a class="btn btn-primary btn-sm" href="{{route('operator.edit', $data->opt_id)}}" data-target="#exampleModal1" data-toggle="modal"  >Edit</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Delete</button>
@@ -124,5 +148,5 @@
             @endforelse
         </tbody>
     </table><tr>
-    {!! $operators->links() !!}
+    <!-- {!! $operators->links() !!} -->
 @endsection

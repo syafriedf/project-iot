@@ -18,6 +18,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
 
 </head> 
@@ -96,7 +97,33 @@
 
     <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
+    
+    <!-- <script type="text/javascript">
+        $document.ready(function(){
+            
+            var table = $('#datatable').DataTable();
+
+            table.on('click','.edit', function(){
+
+                $tr = $(this).closest('tr');
+                if($($tr).hasClass('child')){
+                    $tr = $tr.prev('.parent');
+                }
+
+                var data = table.row($tr).data();
+                console.log(data);
+
+                $('#opt_name').val(data[1]);
+                $('#division').val(data[2]);
+
+                $('#editForm').attr('action','/operator/'+data[0]);
+                $('#exampleModal1').modal('show');
+            });
+        });
+    </script> -->
+
 
 </body>
 

@@ -27,6 +27,9 @@ class OperatorController extends Controller
         $request->validate([
             'opt_name' => 'required',
             'division' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'roles' => 'required',  
         ]);
  
         Operator::create($request->all());
@@ -39,10 +42,12 @@ class OperatorController extends Controller
 
     }
 
-    public function edit(Operator $operator)
+    public function edit(Operator $id)
     {
         // $operator = DB::table('operators')->where('opt_id',$operator)->get();
-        return view('v_operator',compact('operator'));
+        $operators = Operator::find($id);
+
+        return view('v_operator',compact('operators'));
     //    return view('v_operator',['operators'=> $operator]);
         //return("teste//dit");
     }

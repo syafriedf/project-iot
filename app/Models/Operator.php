@@ -13,6 +13,6 @@ class Operator extends Model
     protected $primaryKey = 'opt_id';
 
     protected $fillable = [
-        'opt_name','division'
+        'opt_name','division', 'username','password','roles'
     ];
 }
