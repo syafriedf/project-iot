@@ -82,21 +82,21 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        <!-- @foreach ($operators as $data) -->
-                            <form action="{{route('operator.update', $operators->opt_id)}}" method="POST" id="editForm">
+                        @foreach ($operators as $data)
+                            <form action="{{route('operator.update', $data->opt_id)}}" method="POST" id="editForm">
                             @csrf
                             @method('PUT')
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Nama Operator: </strong>
-                                            <input type="text" name="opt_name" id="opt_name" value="{{$operators->opt_name}}" class="form-control"  placeholder="Nama Operator">
+                                            <input type="text" name="opt_name" id="opt_name" value="{{$data->opt_name}}" class="form-control"  placeholder="Nama Operator">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Divisi: </strong>
-                                            <input class="form-control"  id="division" value="{{$operators->division}}"  name="division" placeholder="Divisi">
+                                            <input class="form-control"  id="division" value="{{$data->division}}"  name="division" placeholder="Divisi">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

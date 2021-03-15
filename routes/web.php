@@ -6,6 +6,7 @@ use App\Http\Controllers\OperatorController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\WoController;
+use App\Http\Controllers\LineController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,7 +22,7 @@ use App\Http\Controllers\WoController;
 //     return view('welcome');
 // });
 
-Route::get('/home', [MainController::class, 'index']);
+Route::get('/home', [LineController::class, 'index']);
 Route::view('/login', 'auth.login');
 
 Route::resource('operator', OperatorController::class);

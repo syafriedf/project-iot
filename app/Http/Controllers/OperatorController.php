@@ -69,6 +69,27 @@ class OperatorController extends Controller
         $operator->delete();
 
         return redirect()->back()->with('success', 'Deleted Succesfully!');
-
     }
+
+    public function get_lines_opt($id){
+        $get_opt = Line::get()->where('opt_id', $id);
+
+        return view('v_home',compact('get_opt'));
+    }
+
+    // //// LOGIN
+    // public function authenticate(Request $request)
+    // {
+    //     $opt = $request->only('username', 'password');
+
+    //     if (Auth::attempt($opt)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('');
+    //     }
+
+    //     return back()->withErrors([
+    //         'username' => 'The provided credentials do not match our records.',
+    //     ]);
+    // }
 }
