@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Operator;
+use Illuminate\Support\Facades\DB;
 
 class OperatorController extends Controller
 {
@@ -26,6 +27,9 @@ class OperatorController extends Controller
         $request->validate([
             'opt_name' => 'required',
             'division' => 'required',
+            'username' => 'required',
+            'password' => 'required',
+            'roles' => 'required',  
         ]);
  
         Operator::create($request->all());
@@ -35,12 +39,17 @@ class OperatorController extends Controller
 
     public function show($id)
     {
-        //
+
     }
 
-    public function edit(Operator $operator)
+    public function edit(Operator $id)
     {
-        return view('v_operator',compact('operator'));
+        // $operator = DB::table('operators')->where('opt_id',$operator)->get();
+        $operators = Operator::find($id);
+
+        return view('v_operator',compact('operators'));
+    //    return view('v_operator',['operators'=> $operator]);
+        //return("teste//dit");
     }
 
     public function update(Request $request, Operator $operator)
@@ -53,8 +62,6 @@ class OperatorController extends Controller
         $operator->update($request->all());
 
         return redirect()->back()->with('success', 'Update Succesfully!');
-
- 
     }
 
     public function destroy(Operator $operator)
@@ -62,6 +69,27 @@ class OperatorController extends Controller
         $operator->delete();
 
         return redirect()->back()->with('success', 'Deleted Succesfully!');
-
     }
+
+    public function get_lines_opt($id){
+        $get_opt = Line::get()->where('opt_id', $id);
+
+        return view('v_home',compact('get_opt'));
+    }
+
+    // //// LOGIN
+    // public function authenticate(Request $request)
+    // {
+    //     $opt = $request->only('username', 'password');
+
+    //     if (Auth::attempt($opt)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('');
+    //     }
+
+    //     return back()->withErrors([
+    //         'username' => 'The provided credentials do not match our records.',
+    //     ]);
+    // }
 }

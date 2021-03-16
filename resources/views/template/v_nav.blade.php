@@ -13,7 +13,7 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
             <li class="nav-item {{ request()->is('/') ? 'active' : ''}}">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/home">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard </span></a>
             </li>
@@ -49,10 +49,17 @@
                     <i class="fas fa-fw fa-spinner"></i>
                     <span>Master Status</span></a>
             </li>
+            
 
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item">
+                <a class="nav-link" href="/login">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Logout</span></a>
+            </li>
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\OperatorController;
-
+use App\Http\Controllers\MachineController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\WoController;
+use App\Http\Controllers\LineController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,11 +22,13 @@ use App\Http\Controllers\OperatorController;
 //     return view('welcome');
 // });
 
-Route::get('/', [MainController::class, 'index']);
+Route::get('/home', [LineController::class, 'index']);
+Route::view('/login', 'auth.login');
 
 Route::resource('operator', OperatorController::class);
-Route::view('machine', 'v_machine');
-Route::view('status', 'v_status');
-Route::view('workorder', 'v_wo');
+//Route::resource('test', [OperatorController::class, 'edit']);
+Route::resource('machine', MachineController::class);
+Route::resource('status', StatusController::class);
+Route::resource('workorder', WoController::class);
 
 

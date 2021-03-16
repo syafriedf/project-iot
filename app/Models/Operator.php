@@ -13,6 +13,12 @@ class Operator extends Model
     protected $primaryKey = 'opt_id';
 
     protected $fillable = [
-        'opt_name', 'division'
+        'opt_name','division', 'username','password','roles'
     ];
+
+    public function mch_lines()
+    {
+        return $this->hasMany(Line::class, 'opt_id', 'opt_id');
+    }
+    
 }
