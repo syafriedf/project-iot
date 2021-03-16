@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Operator;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class OperatorController extends Controller
 {
+    public function __construct()
+    {
+        $this->User = new Operator();
+        $this->middleware('auth');
+    }
 
     public function index()
     {
-        $operators = Operator::latest()->paginate(5);
+        $operators = User::latest()->paginate(5);
  
         return view('v_operator',compact('operators'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -29,10 +35,9 @@ class OperatorController extends Controller
             'division' => 'required',
             'username' => 'required',
             'password' => 'required',
-            'roles' => 'required',  
         ]);
  
-        Operator::create($request->all());
+        User::create($request->all());
  
         return redirect()->back()->with('success', 'Add Succesfully!');
     }
@@ -42,17 +47,17 @@ class OperatorController extends Controller
 
     }
 
-    public function edit(Operator $id)
+    public function edit(User $id)
     {
         // $operator = DB::table('operators')->where('opt_id',$operator)->get();
-        $operators = Operator::find($id);
+        $operators = User::find($id);
 
         return view('v_operator',compact('operators'));
     //    return view('v_operator',['operators'=> $operator]);
         //return("teste//dit");
     }
 
-    public function update(Request $request, Operator $operator)
+    public function update(Request $request, User $operator)
     {
         $request->validate([
             'opt_name' => 'required',
@@ -64,7 +69,7 @@ class OperatorController extends Controller
         return redirect()->back()->with('success', 'Update Succesfully!');
     }
 
-    public function destroy(Operator $operator)
+    public function destroy(User $operator)
     {
         $operator->delete();
 

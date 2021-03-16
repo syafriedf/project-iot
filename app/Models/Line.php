@@ -27,4 +27,8 @@ class Line extends Model
     public function sts_line(){
         return $this->belongsTo(Status::class, 'sts_id', 'sts_id');
     }
+
+    public function dwn_line(){
+        return $this->hasMany(Downtime::class, 'id_line', 'id_line');
+    }
 }

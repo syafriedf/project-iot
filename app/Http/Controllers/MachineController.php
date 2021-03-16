@@ -7,6 +7,13 @@ use App\Models\Machine;
 
 class MachineController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->Machine = new Machine();
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $machines = Machine::latest()->paginate(5);

@@ -7,6 +7,13 @@ use App\Models\Workorder;
 
 class WoController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->Workorder = new Workorder();
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $workorders = Workorder::latest()->paginate(5);
