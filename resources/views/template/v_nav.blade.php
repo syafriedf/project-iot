@@ -54,12 +54,29 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    {{ __('Logout') }}
+                    
+                </a>
+            </li>
 
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+            <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+            </form>
             <li class="nav-item">
                 <a class="nav-link" href="/login">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Logout</span></a>
-            </li>
+            </li> -->
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

@@ -13,7 +13,7 @@ class Line extends Model
 
 
     public function opt_line(){
-        return $this->belongsTo(Operator::class, 'opt_id', 'opt_id');
+        return $this->belongsTo(User::class, 'opt_id', 'opt_id');
     }
 
     public function mch_line(){

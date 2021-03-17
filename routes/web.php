@@ -33,4 +33,4 @@ Route::resource('workorder', WoController::class);
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [LineController::class, 'index']);

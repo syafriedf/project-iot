@@ -14,7 +14,7 @@ class LineController extends Controller
     }
 
     public function index(){
-        $id = '4';
+        $id = '2';
         $get_opt = Line::where('opt_id', $id)
         ->with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])
         ->get();

@@ -54,12 +54,6 @@
                                 <input type="text"  class="form-control" name="password" placeholder="Password">
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>roles: </strong>
-                                <input type="text"  class="form-control"  name="roles" placeholder="Roles">
-                            </div>
-                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -118,8 +112,6 @@
                 <th>Nama Operator</th>
                 <th width="280px"class="text-center">Divisi</th>
                 <th width="280px"class="text-center">Username</th>
-                <th width="280px"class="text-center">Password</th>
-                <th width="280px"class="text-center">Roles</th>
                 <th width="280px"class="text-center">Action</th>
             </tr>
         </thead>
@@ -130,8 +122,6 @@
                     <td>{{ $data->opt_name}}</td>
                     <td>{{ $data->division}}</td>
                     <td>{{ $data->username}}</td>
-                    <td>{{ $data->password}}</td>
-                    <td>{{ $data->roles}}</td>
                     <td class="text-center">
                         <form action="{{ route('operator.destroy',$data->opt_id) }}" method="POST">
                             <a class="btn btn-primary btn-sm" href="{{route('operator.edit', $data->opt_id)}}" data-target="#exampleModal1" data-toggle="modal"  >Edit</a>
