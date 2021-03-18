@@ -11,7 +11,7 @@ class OperatorController extends Controller
 {
     public function __construct()
     {
-        $this->User = new Operator();
+        $this->User = new User();
         $this->middleware('auth');
     }
 

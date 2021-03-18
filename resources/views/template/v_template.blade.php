@@ -127,13 +127,6 @@
         });
     </script> -->
 
-    <script>
-    function refreshTable() {
-  $('div.home-u').fadeOut();
-  $('div.home-u').load(url, function() {
-      $('div.home-u').fadeIn();
-  });
-}
 
 </script>
 
