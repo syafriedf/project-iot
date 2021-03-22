@@ -29,6 +29,7 @@ Route::view('/', 'auth.login');
 Auth::routes();
 
 Route::get('/home', [LineController::class, 'index']);
+Route::get('/dash', [LineController::class, 'view_card']);
 
 Route::group(['middleware' => 'admin'], function(){
     Route::resource('operator', OperatorController::class);
