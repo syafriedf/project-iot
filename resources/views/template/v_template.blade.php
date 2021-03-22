@@ -85,9 +85,14 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
+
 
     <!-- Core plugin JavaScript-->
-    <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <!-- <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script> -->
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
@@ -99,30 +104,21 @@
     <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
-    
-    <!-- <script type="text/javascript">
-        $document.ready(function(){
-            
-            var table = $('#datatable').DataTable();
 
-            table.on('click','.edit', function(){
+    <script>
+                    (function () {
+                        setInterval(function () {
+                            axios.get('get_opt')
+                                .then(function(response){
+                                        document.querySelector('#card-u')
+                                                .innerHtml(response.data);
+                                }); // do nothing for error - leaving old content.
+                            }); 
+                        }, 5000); // milliseconds
+                </script>
 
-                $tr = $(this).closest('tr');
-                if($($tr).hasClass('child')){
-                    $tr = $tr.prev('.parent');
-                }
 
-                var data = table.row($tr).data();
-                console.log(data);
-
-                $('#opt_name').val(data[1]);
-                $('#division').val(data[2]);
-
-                $('#editForm').attr('action','/operator/'+data[0]);
-                $('#exampleModal1').modal('show');
-            });
-        });
-    </script> -->
+</script>
 
 
 </body>

@@ -17,49 +17,64 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard </span></a>
             </li>
+            @if (auth()->user()->level==1)
+                            <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Interface
+                </div>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item {{ request()->is('operator') ? 'active' : ''}} ">
+                    <a class="nav-link" href="/operator">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>Master Operator</span></a>
+                </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{ request()->is('operator') ? 'active' : ''}} ">
-                <a class="nav-link" href="/operator">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Master Operator</span></a>
-            </li>
+                <li class="nav-item nav-item {{ request()->is('machine') ? 'active' : ''}} ">
+                    <a class="nav-link" href="/machine">
+                        <i class="fas fa-fw fa-tools"></i>
+                        <span>Master Machine</span></a>
+                </li>
 
-            <li class="nav-item nav-item {{ request()->is('machine') ? 'active' : ''}} ">
-                <a class="nav-link" href="/machine">
-                    <i class="fas fa-fw fa-tools"></i>
-                    <span>Master Machine</span></a>
-            </li>
+                            <li class="nav-item {{ request()->is('workorder') ? 'active' : ''}}">
+                    <a class="nav-link" href="/workorder">
+                        <i class="fas fa-fw fa-plus-circle"></i>
+                        <span>Master Work Order</span></a>
+                </li>
 
-                        <li class="nav-item {{ request()->is('workorder') ? 'active' : ''}}">
-                <a class="nav-link" href="/workorder">
-                    <i class="fas fa-fw fa-plus-circle"></i>
-                    <span>Master Work Order</span></a>
-            </li>
-
-                        <li class="nav-item {{ request()->is('status') ? 'active' : ''}}">
-                <a class="nav-link" href="/status">
-                    <i class="fas fa-fw fa-spinner"></i>
-                    <span>Master Status</span></a>
-            </li>
-            
-
-
+                            <li class="nav-item {{ request()->is('status') ? 'active' : ''}}">
+                    <a class="nav-link" href="/status">
+                        <i class="fas fa-fw fa-spinner"></i>
+                        <span>Master Status</span></a>
+                </li>
+            @endif
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    {{ __('Logout') }}
+                    
+                </a>
+            </li>
 
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+            <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+            </form>
             <li class="nav-item">
                 <a class="nav-link" href="/login">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Logout</span></a>
-            </li>
+            </li> -->
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">

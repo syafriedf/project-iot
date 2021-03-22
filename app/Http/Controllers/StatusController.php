@@ -7,6 +7,13 @@ use App\Models\Status;
 
 class StatusController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->Status = new Status();
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $statuses = Status::latest()->paginate(5);

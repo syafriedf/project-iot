@@ -7,6 +7,7 @@ use App\Http\Controllers\MachineController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\WoController;
 use App\Http\Controllers\LineController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,13 +23,21 @@ use App\Http\Controllers\LineController;
 //     return view('welcome');
 // });
 
+// Route::get('/home', [LineController::class, 'index']);
+Route::view('/', 'auth.login');
+
+Auth::routes();
+
 Route::get('/home', [LineController::class, 'index']);
-Route::view('/login', 'auth.login');
 
-Route::resource('operator', OperatorController::class);
-//Route::resource('test', [OperatorController::class, 'edit']);
-Route::resource('machine', MachineController::class);
-Route::resource('status', StatusController::class);
-Route::resource('workorder', WoController::class);
+Route::group(['middleware' => 'admin'], function(){
+    Route::resource('operator', OperatorController::class);
+    Route::resource('machine', MachineController::class);
+    Route::resource('status', StatusController::class );
+    Route::resource('workorder', WoController::class );
 
+});
 
+// Route::group(['middleware' => 'user'], function(){
+//     Route::get('/home', [LineController::class, 'index']);
+// });

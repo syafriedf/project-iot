@@ -3,20 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Line;
 
 class LineController extends Controller
 {
-    
+    use AuthenticatesUsers;
+
+    public function __construct()
+    {
+        $this->Line = new Line();
+        $this->middleware('auth');
+    }
+
     public function index(){
-        $id = '1';
-        $get_opt = Line::where('opt_id', $id)
-        ->with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])
-        ->get();
+        if (auth()->user()->level==1){
+            $get_opt = Line::with(['opt_line','mch_line','sts_line','wop_line'])->get();
+            $count_mch_off = Line::where('sts_id', 0)->get()->count();
+            $count_mch_on = Line::where('sts_id', 1)->get()->count();
+        }
+        elseif (auth()->user()->level==2){
+            $id =  Auth::user()->opt_id;
+            $get_opt = Line::where('opt_id', $id)
+            ->with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])
+            ->get();
 
-        $count_mch_off = Line::where('opt_id', $id)->where('sts_id', 0)->get()->count();
-        $count_mch_on = Line::where('opt_id', $id)->where('sts_id', 1)->get()->count();
-
+            $count_mch_off = Line::where('opt_id', $id)->where('sts_id', 0)->get()->count();
+            $count_mch_on = Line::where('opt_id', $id)->where('sts_id', 1)->get()->count();
+        }
         // var_dump($get_opt[0] -> mch_line);
 
         return view('v_home',compact('get_opt','count_mch_off','count_mch_on'));

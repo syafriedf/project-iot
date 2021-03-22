@@ -26,7 +26,7 @@ class CreateMchLinesTable extends Migration
             $table->foreign('mch_id')->references('mch_id')->on('machines')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('sts_id')->references('sts_id')->on('statuses')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('wop_id')->references('wop_id')->on('workorders')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('opt_id')->references('opt_id')->on('operators')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('opt_id')->references('opt_id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

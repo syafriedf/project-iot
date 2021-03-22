@@ -2,15 +2,15 @@
 
 @section('content')
 
-
+                <div class="home-u">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard Monitoring Machine Albea Surabaya</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#exampleModal"><i
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard Monitoring Machine Albea Surabaya<b>( Welcome {{ auth()->user()->opt_name}} )</b></h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#editModal"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -106,7 +106,7 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    <div class="row" id="card-u">
 
                         <!-- Content Column -->
 
@@ -126,15 +126,26 @@
                         if ($data->sts_line->sts_id == 0){
                             $run_hour = " - ";
                             $color = '#d42613';
+                            echo "<script>$(document).ready(function(){
+                            $('#editModal').modal('show');
+                        });</script>";
                         }
                         else{
                             $downtime = " - ";
                             $color = '#32a852';
                         }
                         @endphp
+
+                        <!-- @if($data->sts_line->sts_id == 0)
+                        <script>
+                        $(document).ready(function(){
+                            $('#editModal').modal('show');
+                        });
+                        </script>
+                        @endif -->
                         <div class=" col-xl-4 col-lg-6 mb-4">
                             <!-- Approach -->
-                            <div class="card shadow mb-4">
+                            <div class="card shadow mb-4 the-card">
                                 <div class="card-header py-3" style="background: <?php echo $color; ?>">
                                     <h3 class="m-0 font-weight-bold" style="color: black;">{{$data->mch_line->mch_name}}</h3>
                                 </div>
@@ -149,6 +160,7 @@
                         </div>
                         @endforeach
                     </div>
+                </div>
 
 @endsection()
 
