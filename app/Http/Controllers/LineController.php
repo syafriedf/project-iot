@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Line;
 
+
 class LineController extends Controller
 {
     use AuthenticatesUsers;
+    
 
     public function __construct()
     {
@@ -19,14 +21,14 @@ class LineController extends Controller
 
     public function index(){
         if (auth()->user()->level==1){
-            $get_opt = Line::with(['opt_line','mch_line','sts_line','wop_line'])->get();
+            $get_opt = Line::with(['opt_line','mch_line','sts_line','wop_line'])->latest()->get();
             $count_mch_off = Line::where('sts_id', 0)->get()->count();
             $count_mch_on = Line::where('sts_id', 1)->get()->count();
         }
         elseif (auth()->user()->level==2){
             $id =  Auth::user()->opt_id;
             $get_opt = Line::where('opt_id', $id)
-            ->with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])
+            ->with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])->latest()
             ->get();
 
             $count_mch_off = Line::where('opt_id', $id)->where('sts_id', 0)->get()->count();
@@ -39,14 +41,14 @@ class LineController extends Controller
 
     public function view_card(){
         if (auth()->user()->level==1){
-            $get_opt = Line::with(['opt_line','mch_line','sts_line','wop_line'])->get();
+            $get_opt = Line::with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])->latest()->get();
             $count_mch_off = Line::where('sts_id', 0)->get()->count();
-            $count_mch_on = Line::where('sts_id', 1)->get()->count();
+            $count_mch_on = Line::where('sts_id', 1)->get()->count();            
         }
         elseif (auth()->user()->level==2){
             $id =  Auth::user()->opt_id;
             $get_opt = Line::where('opt_id', $id)
-            ->with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])
+            ->with(['opt_line','mch_line','sts_line','wop_line','dwn_line'])->latest()
             ->get();
 
             $count_mch_off = Line::where('opt_id', $id)->where('sts_id', 0)->get()->count();
@@ -63,4 +65,19 @@ class LineController extends Controller
         $sts = Line::where('opt_id', $id)->where('sts_id', 0)->get();
         return view('');
     }
+
+    public function store(Request $request, Line $line){
+
+        $cur_date = new \DateTime('NOW');
+
+        if(Line::where('sts_id', 0)->get()){
+            $line->dwn_line()->create([
+                // 'sts_id' => '0',
+                'date_start' => $cur_date->$request->date_start,
+              ]);
+        }
+        return redirect()->back()->with('success', 'Update Succesfully!');
+    }
+
+    
 }

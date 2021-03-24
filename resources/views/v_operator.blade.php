@@ -83,7 +83,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Nama Operator: </strong>
-                                <input type="text" name="opt_name" class="form-control" placeholder="Nama Operator">
+                                <input type="text" name="opt_name" class="form-control" value="$operators->opt_name" placeholder="Nama Operator">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -96,12 +96,6 @@
                             <div class="form-group">
                                 <strong>username: </strong>
                                 <input type="text" class="form-control" name="username" placeholder="Username">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>password: </strong>
-                                <input type="text"  class="form-control" name="password" placeholder="Password">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -162,6 +156,7 @@
                 <th>Nama Operator</th>
                 <th width="280px"class="text-center">Divisi</th>
                 <th width="280px"class="text-center">Username</th>
+                <th width="280px"class="text-center">Machine Viewer</th>
                 <th width="280px"class="text-center">Action</th>
             </tr>
         </thead>
@@ -172,6 +167,7 @@
                     <td>{{ $data->opt_name}}</td>
                     <td>{{ $data->division}}</td>
                     <td>{{ $data->username}}</td>
+                    <th width="280px"class="text-center"></th>
                     <td class="text-center">
                         <form action="{{ route('operator.destroy',$data->opt_id) }}" method="POST">
                            <!-- cek edit -->
@@ -180,7 +176,7 @@
                                 data-toggle="modal"
                                 data-opr_id= "{{ $data->opt_id }}"
                                 data-nama= "{{ $data->opt_name }}"
-                                data-division= "{{ $data->opt_nama }}"
+                                data-division= "{{ $data->division }}"
                                  >Edit</a> 
                             @csrf
                             @method('DELETE')

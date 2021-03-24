@@ -77,7 +77,7 @@
                     $('#disini').html(data);
                     },
                     complete: function() {
-                    setTimeout(worker, 1000);
+                    setTimeout(worker, 500);
                     }
                 });
                 })();

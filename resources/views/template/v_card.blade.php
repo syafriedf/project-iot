@@ -47,36 +47,40 @@
 
                     </div>
 
+                    
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                    @endif
+
                     <!-- Content Row -->
                     <div class="row" id="card-u">
 
                         <!-- Content Column -->
 
                         @foreach ($get_opt as $data)
-                        @php
-                        $time1 = new DateTime($data->dwn_line[count($data->dwn_line)-1]->date_end);
-                        $time2 = new DateTime($data->dwn_line[count($data->dwn_line)-1]->date_start);
-                        $time3 = new DateTime();
-                        $time_diff = $time1->diff($time2);
-                        $time_now = $time2->diff($time3);
+                            @php
+                            $time1 = new DateTime($data->dwn_line[count($data->dwn_line)-1]->date_end);
+                            $time2 = new DateTime($data->dwn_line[count($data->dwn_line)-1]->date_start);
+                            $time3 = new DateTime();
+                            $time_diff = $time2->diff($time3);
+                            $time_now = $time1->diff($time3);
 
-                        $downtime = $time_diff->h.' Hours '.$time_diff->i. ' Minutes ';
-                        $run_hour = $time_now->h. ' Hours ' .$time_now->i. ' Minutes ';
+                            $downtime = $time_diff->h.' Hours '.$time_diff->i. ' Minutes ';
+                            $run_hour = $time_now->h. ' Hours ' .$time_now->i. ' Minutes ';
 
-                        $color = '#32a852';
-
-                        if ($data->sts_line->sts_id == 0){
-                            $run_hour = " - ";
-                            $color = '#d42613';
-                            echo "<script>$(document).ready(function(){
-                            $('#tampil').modal('show');
-                           });</script>";
-                        }
-                        else{
-                            $downtime = " - ";
                             $color = '#32a852';
-                        }
-                        @endphp
+
+                            if ($data->sts_line->sts_id == 0){
+                                $run_hour = " - ";
+                                $color = '#d42613';
+                            }
+                            else{
+                                $downtime = " - ";
+                                $color = '#32a852';
+                            }
+                            @endphp
 
                         <div class=" col-xl-4 col-lg-6 mb-4">
                             <!-- Approach -->
