@@ -60,12 +60,6 @@ class LineController extends Controller
     }    
 
 
-    public function add_reason(){
-        $id = '1';
-        $sts = Line::where('opt_id', $id)->where('sts_id', 0)->get();
-        return view('');
-    }
-
     public function store(Request $request, Line $line){
 
         $cur_date = new \DateTime('NOW');
@@ -78,6 +72,24 @@ class LineController extends Controller
         }
         return redirect()->back()->with('success', 'Update Succesfully!');
     }
+
+    public function update(Request $request, Line $line){
+        $cur_date = new \DateTime('NOW');
+
+        if($line->where('sts',1)->get()){
+            if($line->dwn_line()->date_end == null){
+                $line->dwn_line()->update([
+                    'date_end' => $cur_date->$request->date_end,
+                ]);
+            }
+        }
+    }
+
+        // public function add_reason(){
+    //     $id = '1';
+    //     $sts = Line::where('opt_id', $id)->where('sts_id', 0)->get();
+    //     return view('');
+    // }
 
     
 }
