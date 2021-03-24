@@ -68,7 +68,7 @@
                             $time_now = $time1->diff($time3);
 
                             $downtime = $time_diff->h.' Hours '.$time_diff->i. ' Minutes ' .$time_diff->s. ' Seconds ';
-                            $run_hour = $time_now->h. ' Hours ' .$time_now->i. ' Minutes ';
+                            $run_hour = $time_now->h. ' Hours ' .$time_now->i. ' Minutes ' .$time_now->s. ' Seconds ';
 
                             $color = '#32a852';
 
