@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2021 at 07:20 AM
+-- Generation Time: Mar 25, 2021 at 05:40 AM
 -- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.2
+-- PHP Version: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `downtimes` (
   `dwn_id` bigint(20) UNSIGNED NOT NULL,
   `id_line` bigint(20) UNSIGNED NOT NULL,
-  `sts_id` bigint(20) UNSIGNED NOT NULL,
+  `sts_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `date_start` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -40,7 +40,16 @@ CREATE TABLE `downtimes` (
 --
 
 INSERT INTO `downtimes` (`dwn_id`, `id_line`, `sts_id`, `date_start`, `date_end`) VALUES
-(1, 1, 0, '2021-03-22 01:04:33', NULL);
+(1, 1, 0, '2021-03-24 07:04:33', '2021-03-24 09:06:24'),
+(47, 1, 0, '2021-03-24 10:58:53', '2021-03-24 11:24:37'),
+(48, 1, 0, '2021-03-24 11:25:19', '2021-03-24 11:25:28'),
+(49, 2, 0, '2021-03-24 11:28:12', '2021-03-24 11:28:54'),
+(50, 2, 0, '2021-03-24 11:29:21', '2021-03-24 11:35:28'),
+(51, 1, 0, '2021-03-24 11:37:34', '2021-03-24 11:37:51'),
+(52, 2, 0, '2021-03-24 11:38:53', '2021-03-24 11:40:19'),
+(53, 2, 0, '2021-03-24 13:29:19', '2021-03-24 13:29:36'),
+(54, 2, 0, '2021-03-24 14:29:42', '2021-03-24 14:29:52'),
+(55, 2, 0, '2021-03-24 16:31:31', '2021-03-24 16:31:43');
 
 -- --------------------------------------------------------
 
@@ -94,6 +103,7 @@ CREATE TABLE `mch_lines` (
   `sts_id` bigint(20) UNSIGNED NOT NULL,
   `wop_id` bigint(20) UNSIGNED NOT NULL,
   `opt_id` bigint(20) UNSIGNED NOT NULL,
+  `ins_status` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -102,8 +112,9 @@ CREATE TABLE `mch_lines` (
 -- Dumping data for table `mch_lines`
 --
 
-INSERT INTO `mch_lines` (`id_line`, `mch_id`, `sts_id`, `wop_id`, `opt_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 0, 1, 1, NULL, NULL);
+INSERT INTO `mch_lines` (`id_line`, `mch_id`, `sts_id`, `wop_id`, `opt_id`, `ins_status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 1, 0, NULL, '2021-03-24 04:37:51'),
+(2, 2, 1, 1, 3, 0, NULL, '2021-03-24 09:31:43');
 
 -- --------------------------------------------------------
 
@@ -287,7 +298,7 @@ ALTER TABLE `workorders`
 -- AUTO_INCREMENT for table `downtimes`
 --
 ALTER TABLE `downtimes`
-  MODIFY `dwn_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `dwn_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -305,7 +316,7 @@ ALTER TABLE `machines`
 -- AUTO_INCREMENT for table `mch_lines`
 --
 ALTER TABLE `mch_lines`
-  MODIFY `id_line` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_line` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
